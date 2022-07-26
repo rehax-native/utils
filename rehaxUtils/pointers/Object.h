@@ -275,6 +275,11 @@ public:
     return isValid();
   }
 
+  T* get() const
+  {
+    return object;
+  }
+
 private:
   T * object;
   ObjectPointer<ReferenceCounter> weakReferenceCounter;
