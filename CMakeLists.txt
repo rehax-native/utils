@@ -9,10 +9,10 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/google/googletest.git
   GIT_TAG release-1.12.1
 )
+
 # For Windows: Prevent overriding the parent project's compiler/linker settings
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
-
 
 include_directories(.)
 
@@ -33,7 +33,6 @@ target_link_libraries(
 include(GoogleTest)
 gtest_discover_tests(ObjectPtrTest)
 
-
 # To run the tests:
 # cmake -S . -B build_test
 # cmake --build build_test --target ObjectPtrTest
@@ -41,13 +40,12 @@ gtest_discover_tests(ObjectPtrTest)
 
 # To create an xcode project for development:
 # cmake -G Xcode -S . -B build
-
 file(GLOB REHAX_UTILS_MAC_SRC_FILES
-    links/links.mac.mm
-    timers/mac/timer.mm
+  rehaxUtils/links/links.mac.mm
+  rehaxUtils/timers/mac/timer.mm
 )
 
 add_library(
-    rehax-utils-mac STATIC
-    ${REHAX_UTILS_MAC_SRC_FILES}
+  rehax-utils-mac STATIC
+  ${REHAX_UTILS_MAC_SRC_FILES}
 )
