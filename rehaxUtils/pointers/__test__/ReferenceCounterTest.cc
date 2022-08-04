@@ -2,7 +2,7 @@
 #include "../Object.h"
 #include <vector>
 
-class ReferenceCounterTestClass : public fluxe::Object<ReferenceCounterTestClass>
+class ReferenceCounterTestClass : public rehaxUtils::Object<ReferenceCounterTestClass>
 {
 public:
     ReferenceCounterTestClass(std::vector<std::pair<int, std::string>>& events)
@@ -25,10 +25,10 @@ public:
 TEST(ReferenceCounterTest, BasicAssertions) {
     std::vector<std::pair<int, std::string>> events;
 
-    fluxe::WeakObjectPointer<ReferenceCounterTestClass> weakPtr;
+    rehaxUtils::WeakObjectPointer<ReferenceCounterTestClass> weakPtr;
 
     {
-        auto obj = fluxe::Object<ReferenceCounterTestClass>::Create(events);
+        auto obj = rehaxUtils::Object<ReferenceCounterTestClass>::Create(events);
         EXPECT_EQ(obj->getReferenceCount(), 1);
         {
             auto nextOne = obj;

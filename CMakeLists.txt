@@ -43,9 +43,22 @@ gtest_discover_tests(ObjectPtrTest)
 file(GLOB REHAX_UTILS_MAC_SRC_FILES
   rehaxUtils/links/links.mac.mm
   rehaxUtils/timers/mac/timer.mm
+  rehaxUtils/httpFetch/HttpFetch.cc
+  rehaxUtils/httpFetch/HttpFetch.mac.mm
 )
 
 add_library(
   rehax-utils-mac STATIC
   ${REHAX_UTILS_MAC_SRC_FILES}
+)
+
+add_executable(
+  rehax-utils-mac-http-test
+  rehaxUtils/httpFetch/HttpFetch.cc
+  rehaxUtils/httpFetch/HttpFetch.mac.mm
+  rehaxUtils/httpFetch/__test__/Verbs.cc
+)
+target_link_libraries(
+  rehax-utils-mac-http-test
+  "-framework Foundation"
 )

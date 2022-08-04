@@ -14,3 +14,7 @@ An abstraction of timers in various platforms.
 ### Links
 
 Expose a way to open a URL in the default web browser.
+
+### HttpFetch
+
+A common interface to native http libraries.

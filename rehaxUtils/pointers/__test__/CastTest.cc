@@ -2,13 +2,13 @@
 #include "../Object.h"
 #include <vector>
 
-class ParentTestClass : public fluxe::Object<ParentTestClass>
+class ParentTestClass : public rehaxUtils::Object<ParentTestClass>
 {
 public:
     void parentTest() {}
 };
 
-class OtherParentTestClass : public fluxe::Object<ParentTestClass>
+class OtherParentTestClass : public rehaxUtils::Object<ParentTestClass>
 {
 public:
     void otherParentTest() {}
@@ -32,11 +32,11 @@ public:
 
 TEST(CastTest, BasicAssertions) {
 
-    fluxe::ObjectPointer<ParentTestClass> thing = fluxe::Object<DerivedTestClass>::Create();
+    rehaxUtils::ObjectPointer<ParentTestClass> thing = rehaxUtils::Object<DerivedTestClass>::Create();
     thing->parentTest();
 
-    fluxe::ObjectPointer<DerivedTestClass> derivedThing = fluxe::dynamic_pointer_cast<DerivedTestClass>(thing);
-    fluxe::ObjectPointer<ParentTestClass> sameThing = derivedThing;
+    rehaxUtils::ObjectPointer<DerivedTestClass> derivedThing = rehaxUtils::dynamic_pointer_cast<DerivedTestClass>(thing);
+    rehaxUtils::ObjectPointer<ParentTestClass> sameThing = derivedThing;
     int result = derivedThing->derivedTest();
 
     EXPECT_EQ(result, 2);
@@ -44,6 +44,6 @@ TEST(CastTest, BasicAssertions) {
     EXPECT_EQ(derivedThing->getReferenceCount(), 3);
     EXPECT_EQ(sameThing->getReferenceCount(), 3);
 
-    // fluxe::ObjectPointer<OtherDerivedTestClass> otherThing = fluxe::Object<OtherDerivedTestClass>::Create();
+    // rehaxUtils::ObjectPointer<OtherDerivedTestClass> otherThing = rehaxUtils::Object<OtherDerivedTestClass>::Create();
     // EXPECT_EQ(otherThing->getReferenceCount(), 1);
 }

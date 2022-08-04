@@ -2,7 +2,7 @@
 #include "../Object.h"
 #include <vector>
 
-class ReferenceCounterTreeTestClass : public fluxe::Object<ReferenceCounterTreeTestClass>
+class ReferenceCounterTreeTestClass : public rehaxUtils::Object<ReferenceCounterTreeTestClass>
 {
 public:
     ReferenceCounterTreeTestClass(std::vector<std::pair<int, std::string>>& events)
@@ -21,25 +21,25 @@ public:
     std::vector<std::pair<int, std::string>> & events;
     int id = 0;
 
-    std::vector<fluxe::ObjectPointer<ReferenceCounterTreeTestClass>> children;
-    fluxe::WeakObjectPointer<ReferenceCounterTreeTestClass> parent;
+    std::vector<rehaxUtils::ObjectPointer<ReferenceCounterTreeTestClass>> children;
+    rehaxUtils::WeakObjectPointer<ReferenceCounterTreeTestClass> parent;
 };
 
 TEST(ReferenceCounterTreeTest, BasicAssertions) {
     std::vector<std::pair<int, std::string>> events;
 
-    fluxe::WeakObjectPointer<ReferenceCounterTreeTestClass> weakRoot;
-    fluxe::WeakObjectPointer<ReferenceCounterTreeTestClass> weakChildChild1;
-    fluxe::WeakObjectPointer<ReferenceCounterTreeTestClass> weakChildChild2;
-    fluxe::WeakObjectPointer<ReferenceCounterTreeTestClass> weakChild1;
-    fluxe::WeakObjectPointer<ReferenceCounterTreeTestClass> weakChild2;
+    rehaxUtils::WeakObjectPointer<ReferenceCounterTreeTestClass> weakRoot;
+    rehaxUtils::WeakObjectPointer<ReferenceCounterTreeTestClass> weakChildChild1;
+    rehaxUtils::WeakObjectPointer<ReferenceCounterTreeTestClass> weakChildChild2;
+    rehaxUtils::WeakObjectPointer<ReferenceCounterTreeTestClass> weakChild1;
+    rehaxUtils::WeakObjectPointer<ReferenceCounterTreeTestClass> weakChild2;
 
     {
-        auto strongRoot = fluxe::Object<ReferenceCounterTreeTestClass>::Create(events);
+        auto strongRoot = rehaxUtils::Object<ReferenceCounterTreeTestClass>::Create(events);
         weakRoot = strongRoot;
         {
-            auto child1 = fluxe::Object<ReferenceCounterTreeTestClass>::Create(events);
-            auto child2 = fluxe::Object<ReferenceCounterTreeTestClass>::Create(events);
+            auto child1 = rehaxUtils::Object<ReferenceCounterTreeTestClass>::Create(events);
+            auto child2 = rehaxUtils::Object<ReferenceCounterTreeTestClass>::Create(events);
 
             weakChild1 = child1;
             weakChild2 = child2;
@@ -50,8 +50,8 @@ TEST(ReferenceCounterTreeTest, BasicAssertions) {
             child1->parent = strongRoot;
             child2->parent = strongRoot;
 
-            auto childChild1 = fluxe::Object<ReferenceCounterTreeTestClass>::Create(events);
-            auto childChild2 = fluxe::Object<ReferenceCounterTreeTestClass>::Create(events);
+            auto childChild1 = rehaxUtils::Object<ReferenceCounterTreeTestClass>::Create(events);
+            auto childChild2 = rehaxUtils::Object<ReferenceCounterTreeTestClass>::Create(events);
 
             weakChildChild1 = childChild1;
             weakChildChild2 = childChild2;
