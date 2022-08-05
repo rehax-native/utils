@@ -71,3 +71,10 @@ TEST(ReferenceCounterTest, BasicAssertions) {
     EXPECT_STREQ(std::get<1>(events[1]).c_str(), "Destroy ReferenceCounterTestClass");
     EXPECT_EQ(weakPtr.isValid(), false);
 }
+
+TEST(WeakPointerTest, BasicAssertions) {
+    rehaxUtils::WeakObjectPointer<ReferenceCounterTestClass> weakPtr = rehaxUtils::ObjectPointer<ReferenceCounterTestClass>(nullptr);
+    EXPECT_EQ(weakPtr.isValid(), false);
+    weakPtr = rehaxUtils::ObjectPointer<ReferenceCounterTestClass>(nullptr);
+    EXPECT_EQ(weakPtr.isValid(), false);
+}

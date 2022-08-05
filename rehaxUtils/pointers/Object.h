@@ -256,14 +256,22 @@ public:
   WeakObjectPointer& operator = (const ObjectPointer<T>& other) noexcept
   {
     object = other.object;
-    weakReferenceCounter = other->referenceCounter;
+    if (object != nullptr) {
+      weakReferenceCounter = object->referenceCounter;
+    } else {
+      weakReferenceCounter = ObjectPointer<ReferenceCounter>(nullptr);
+    }
     return *this;
   }
 
   WeakObjectPointer& operator = (ObjectPointer<T>&& other) noexcept
   {
     object = other.object;
-    weakReferenceCounter = other->referenceCounter;
+    if (object != nullptr) {
+      weakReferenceCounter = object->referenceCounter;
+    } else {
+      weakReferenceCounter = ObjectPointer<ReferenceCounter>(nullptr);
+    }
     return *this;
   }
 
