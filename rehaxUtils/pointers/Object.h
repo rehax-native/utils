@@ -226,8 +226,7 @@ public:
   WeakObjectPointer();
 
   WeakObjectPointer(T * t)
-  :
-  object(t)
+  :object(t)
   {
     if (t != nullptr)
     {
@@ -239,16 +238,19 @@ public:
   {}
 
   WeakObjectPointer(const ObjectPointer<T>& other) noexcept
-  : object(other.object),
-  weakReferenceCounter(object->referenceCounter)
+  :object(other.object)
   {
+    if (object != nullptr) {
+      weakReferenceCounter = object->referenceCounter;
+    }
   }
 
   WeakObjectPointer(ObjectPointer<T>&& other) noexcept
-  :
-  object(other.object),
-  weakReferenceCounter(object->referenceCounter)
+  :object(other.object)
   {
+    if (object != nullptr) {
+      weakReferenceCounter = object->referenceCounter;
+    }
   }
 
   WeakObjectPointer& operator = (const ObjectPointer<T>& other) noexcept
