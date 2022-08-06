@@ -279,6 +279,53 @@ public:
     return object;
   }
 
+  bool operator == (const WeakObjectPointer& other) const noexcept
+  { return object == other.object; }
+
+  //! test inequality of only the pointer values.
+  bool operator != (const WeakObjectPointer& other) const noexcept
+  { return object != other.object; }
+
+  //! test equality of only the address pointed to
+  bool operator == (T* other) const noexcept
+  { return object == other; }
+
+  //! test inequality of only the address pointed to
+  bool operator != (T* other) const noexcept
+  { return object != other; }
+
+  //! compare the pointer values.
+  bool operator < (const WeakObjectPointer& other) const noexcept
+  { return object < other.object; }
+
+  //! compare the pointer values.
+  bool operator <= (const WeakObjectPointer& other) const noexcept
+  { return object <= other.object; }
+
+  //! compare the pointer values.
+  bool operator > (const WeakObjectPointer& other) const noexcept
+  { return object > other.object; }
+
+  //! compare the pointer values.
+  bool operator >= (const WeakObjectPointer& other) const noexcept
+  { return object >= other.object; }
+
+  //! compare the pointer values.
+  bool operator < (T* other) const noexcept
+  { return object < other; }
+
+  //! compare the pointer values.
+  bool operator <= (T* other) const noexcept
+  { return object <= other; }
+
+  //! compare the pointer values.
+  bool operator > (T* other) const noexcept
+  { return object > other; }
+
+  //! compare the pointer values.
+  bool operator >= (T* other) const noexcept
+  { return object >= other; }
+
   bool isValid() const;
   operator bool () const
   {
