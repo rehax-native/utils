@@ -47,14 +47,18 @@ public:
   ObjectPointer(const ObjectPointer& other) noexcept
   :object(other.object)
   {
-    object->increaseReferenceCount();
+    if (object != nullptr) {
+      object->increaseReferenceCount();
+    }
   }
 
   template <typename Subclass, typename = typename std::enable_if<std::is_convertible<Subclass*, T*>::value, void>::type>
   ObjectPointer(const ObjectPointer<Subclass>& other) noexcept
   :object(other.object)
   {
-    object->increaseReferenceCount();
+    if (object != nullptr) {
+      object->increaseReferenceCount();
+    }
   }
 
   // move constructor
@@ -153,6 +157,11 @@ public:
   }
 
   bool hasPointer()
+  {
+    return object != nullptr;
+  }
+
+  bool hasPointer() const
   {
     return object != nullptr;
   }

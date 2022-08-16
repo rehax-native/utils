@@ -76,12 +76,12 @@ void HttpFetch::makeRequest(HttpRequest request) {
 
     [task resume];
 
-    if ([currentRunLoop currentMode] == nullptr) {
-      // handlesRunloop = true;
-      // runloopcounter++;
-      [currentRunLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:5]];
-    // } else if (handlesRunloop) {
-    //   runloopcounter++;
-    }
+    // if ([currentRunLoop currentMode] == nullptr) {
+    //   // handlesRunloop = true;
+    //   // runloopcounter++;
+    //   [currentRunLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:5]];
+    // // } else if (handlesRunloop) {
+    // //   runloopcounter++;
+    // }
   }
 }
