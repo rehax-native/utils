@@ -42,7 +42,7 @@ gtest_discover_tests(ObjectPtrTest)
 # cmake -G Xcode -S . -B build
 file(GLOB REHAX_UTILS_MAC_SRC_FILES
   rehaxUtils/links/links.mac.mm
-  rehaxUtils/timers/mac/timer.mm
+  rehaxUtils/timer/mac/timer.mm
   rehaxUtils/httpFetch/HttpFetch.cc
   rehaxUtils/httpFetch/HttpFetch.mac.mm
 )
