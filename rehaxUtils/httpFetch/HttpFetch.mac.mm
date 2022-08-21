@@ -64,7 +64,9 @@ void HttpFetch::makeRequest(HttpRequest request) {
           response.body = Object<HttpBody>::Create(typedData, len);
         }
       }
-      callback(response);
+      dispatch_async(dispatch_get_main_queue(), ^{
+        callback(response);
+      });
 
       // if (handlesRunloop) {
       //   runloopcounter--;
