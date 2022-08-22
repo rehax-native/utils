@@ -4,7 +4,7 @@
 
 namespace rehaxUtils {
 
-class Links {
+class Linkink {
 
 public:
   static void openUrl(std::string url);

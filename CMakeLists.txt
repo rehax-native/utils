@@ -41,10 +41,13 @@ gtest_discover_tests(ObjectPtrTest)
 # To create an xcode project for development:
 # cmake -G Xcode -S . -B build
 file(GLOB REHAX_UTILS_MAC_SRC_FILES
-  rehaxUtils/links/links.mac.mm
+  rehaxUtils/linking/linking.mac.mm
   rehaxUtils/timer/mac/timer.mm
   rehaxUtils/httpFetch/HttpFetch.cc
   rehaxUtils/httpFetch/HttpFetch.mac.mm
+  rehaxUtils/os/os.mm
+  rehaxUtils/app/app.mm
+  rehaxUtils/paths/paths.mac.mm
 )
 
 add_library(
