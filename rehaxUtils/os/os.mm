@@ -7,7 +7,7 @@
 #include <TargetConditionals.h>
 #endif
 
-rehaxUtils::OSName rehaxUtils::OS::name() {
+constexpr rehaxUtils::OSName rehaxUtils::OS::name() {
   if (rehaxUtils::OS::isWindows()) {
     return OSName::Windows;
   }
@@ -26,7 +26,7 @@ rehaxUtils::OSName rehaxUtils::OS::name() {
   }
 }
 
-bool rehaxUtils::OS::isWindows() {
+constexpr bool rehaxUtils::OS::isWindows() {
   #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
   return true;
   #else
@@ -34,7 +34,7 @@ bool rehaxUtils::OS::isWindows() {
   #endif
 }
 
-bool rehaxUtils::OS::isMac() {
+constexpr bool rehaxUtils::OS::isMac() {
   #if __APPLE__ && TARGET_OS_MAC
   return true;
   #else
@@ -42,7 +42,7 @@ bool rehaxUtils::OS::isMac() {
   #endif
 }
 
-bool rehaxUtils::OS::isIos() {
+constexpr bool rehaxUtils::OS::isIos() {
   #if __APPLE__ && TARGET_OS_IPHONE
   return true;
   #else
@@ -50,7 +50,7 @@ bool rehaxUtils::OS::isIos() {
   #endif
 }
 
-bool rehaxUtils::OS::isAndroid() {
+constexpr bool rehaxUtils::OS::isAndroid() {
   #if __ANDROID__
   return true;
   #else
@@ -58,7 +58,7 @@ bool rehaxUtils::OS::isAndroid() {
   #endif
 }
 
-bool rehaxUtils::OS::isLinux() {
+constexpr bool rehaxUtils::OS::isLinux() {
   #if __linux__
   return true;
   #else
