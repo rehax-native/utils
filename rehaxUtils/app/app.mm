@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
-#include "paths.h"
+#include "app.h"
 
 std::string rehaxUtils::App::getApplicationSupportDirectory() {
   NSArray * paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);

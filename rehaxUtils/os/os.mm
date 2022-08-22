@@ -1,13 +1,13 @@
 
 #import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
-#include "paths.h"
+#include "os.h"
 
 #if __APPLE__
 #include <TargetConditionals.h>
 #endif
 
-OSName rehaxUtils::OS::name() {
+rehaxUtils::OSName rehaxUtils::OS::name() {
   if (rehaxUtils::OS::isWindows()) {
     return OSName::Windows;
   }
