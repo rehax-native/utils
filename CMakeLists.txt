@@ -45,7 +45,6 @@ file(GLOB REHAX_UTILS_MAC_SRC_FILES
   rehaxUtils/timer/mac/timer.mm
   rehaxUtils/httpFetch/HttpFetch.cc
   rehaxUtils/httpFetch/HttpFetch.mac.mm
-  rehaxUtils/os/os.mm
   rehaxUtils/app/app.mm
   rehaxUtils/paths/paths.mac.mm
 )
