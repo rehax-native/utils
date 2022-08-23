@@ -13,7 +13,7 @@ std::string rehaxUtils::App::getApplicationSupportDirectoryForApp() {
   NSString * applicationSupportDirectory = [paths firstObject];
 
   NSString * appBundleID = [[NSBundle mainBundle] bundleIdentifier];
-  return [[applicationSupportDirectory URLByAppendingPathComponent:appBundleID] UTF8String];
+  return [[applicationSupportDirectory stringByAppendingPathComponent:appBundleID] UTF8String];
 }
 
 std::string rehaxUtils::App::getApplicationGroupContainerDirectory(std::string appGroupID) {
