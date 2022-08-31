@@ -1,5 +1,4 @@
-#import <Foundation/Foundation.h>
-#import <AppKit/AppKit.h>
+#include <shlobj_core.h>
 #include "app.h"
 
 std::string rehaxUtils::App::getApplicationSupportDirectory() {
@@ -26,12 +25,6 @@ std::string rehaxUtils::App::getApplicationSupportDirectory() {
 }
 
 std::string rehaxUtils::App::getApplicationSupportDirectoryForApp() {
-  // NSArray * paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
-  // NSString * applicationSupportDirectory = [paths firstObject];
-
-  // NSString * appBundleID = [[NSBundle mainBundle] bundleIdentifier];
-  // return [[applicationSupportDirectory stringByAppendingPathComponent:appBundleID] UTF8String];
-
   WCHAR path[MAX_PATH+1];
   if (SHGetSpecialFolderPathW(HWND_DESKTOP, path, CSIDL_APPDATA, FALSE) != S_OK) {
     return "";
@@ -51,12 +44,25 @@ std::string rehaxUtils::App::getApplicationSupportDirectoryForApp() {
     return "";
   }
   buffer[buflen] = 0;
-  return std::string(buffer) + "\\" + bunldeId;
 
+  std::string fullPath = std::string(buffer) + "\\";
 
-  TCHAR szFileName[MAX_PATH];
+  GetModuleFileNameW(NULL, path, MAX_PATH);
+  pathlen = lstrlenW(path);
 
-GetModuleFileName(NULL, szFileName, MAX_PATH)
+  buflen = WideCharToMultiByte(CP_UTF8, 0, path, pathlen, NULL, 0, NULL, NULL);
+  if (buflen <= 0) {
+      return "";
+  }
+
+  buflen = WideCharToMultiByte(CP_UTF8, 0, path, pathlen, buffer, buflen, NULL, NULL);
+  if (buflen <= 0) {
+      delete[] buffer;
+      return "";
+  }
+  buffer[buflen] = 0;
+
+  return fullPath + std::string(buffer);
 }
 
 std::string rehaxUtils::App::getApplicationGroupContainerDirectory(std::string appGroupID) {

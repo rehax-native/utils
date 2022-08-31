@@ -2,7 +2,7 @@
 #include <windows.h>
 #include <unordered_map>
 
-std::unordered_map<UINT_PTR, std::jkunction<void(void)>> winTimerMap;
+std::unordered_map<UINT_PTR, std::function<void(void)>> winTimerMap;
 
 void RehaxUtilsTimerProc(HWND win, UINT p1, UINT_PTR p2, DWORD p3)
 {
