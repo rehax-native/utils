@@ -3,6 +3,13 @@ project(rehaxUtils)
 
 set(CMAKE_CXX_STANDARD 20)
 
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+  set(MACOSX TRUE)
+endif()
+if (WIN32)
+  set(WIN TRUE)
+endif()
+
 include(FetchContent)
 FetchContent_Declare(
   googletest
@@ -40,27 +47,56 @@ gtest_discover_tests(ObjectPtrTest)
 
 # To create an xcode project for development:
 # cmake -G Xcode -S . -B build
-file(GLOB REHAX_UTILS_MAC_SRC_FILES
-  rehaxUtils/linking/linking.mac.mm
-  rehaxUtils/timer/mac/timer.mm
-  rehaxUtils/httpFetch/HttpFetch.cc
-  rehaxUtils/httpFetch/HttpFetch.mac.mm
-  rehaxUtils/app/app.mm
-  rehaxUtils/paths/paths.mac.mm
-)
+if (${MACOSX})
+  file(GLOB REHAX_UTILS_MAC_SRC_FILES
+    rehaxUtils/linking/linking.mac.mm
+    rehaxUtils/timer/mac/timer.mm
+    rehaxUtils/httpFetch/HttpFetch.cc
+    rehaxUtils/httpFetch/HttpFetch.mac.mm
+    rehaxUtils/app/app.mm
+    rehaxUtils/paths/paths.mac.mm
+  )
 
-add_library(
-  rehax-utils-mac STATIC
-  ${REHAX_UTILS_MAC_SRC_FILES}
-)
+  add_library(
+    rehax-utils-mac STATIC
+    ${REHAX_UTILS_MAC_SRC_FILES}
+  )
 
-add_executable(
-  rehax-utils-mac-http-test
-  rehaxUtils/httpFetch/HttpFetch.cc
-  rehaxUtils/httpFetch/HttpFetch.mac.mm
-  rehaxUtils/httpFetch/__test__/Verbs.cc
-)
-target_link_libraries(
-  rehax-utils-mac-http-test
-  "-framework Foundation"
-)
+  add_executable(
+    rehax-utils-mac-http-test
+    rehaxUtils/httpFetch/HttpFetch.cc
+    rehaxUtils/httpFetch/HttpFetch.mac.mm
+    rehaxUtils/httpFetch/__test__/Verbs.cc
+  )
+  target_link_libraries(
+    rehax-utils-mac-http-test
+    "-framework Foundation"
+  )
+endif()
+
+if (${WIN})
+  file(GLOB REHAX_UTILS_WIN_SRC_FILES
+    rehaxUtils/linking/linking.win.cc
+    rehaxUtils/timer/win/timer.cc
+    rehaxUtils/httpFetch/HttpFetch.cc
+    rehaxUtils/httpFetch/HttpFetch.win.cc
+    rehaxUtils/app/app.win.cc
+    rehaxUtils/paths/paths.win.mm
+  )
+
+  add_library(
+    rehax-utils-win STATIC
+    ${REHAX_UTILS_WIN_SRC_FILES}
+  )
+
+  add_executable(
+    rehax-utils-win-http-test
+    rehaxUtils/httpFetch/HttpFetch.cc
+    rehaxUtils/httpFetch/HttpFetch.win.cc
+    rehaxUtils/httpFetch/__test__/Verbs.cc
+  )
+  # target_link_libraries(
+  #   rehax-utils-win-http-test
+  #   # "-framework Foundation"
+  # )
+endif()
