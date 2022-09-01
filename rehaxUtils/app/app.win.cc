@@ -1,4 +1,9 @@
-#include <shlobj_core.h>
+#ifdef _WIN32_WINNT
+#undef _WIN32_WINNT
+#define _WIN32_WINNT 0x601
+#endif
+#include <Shlobj.h>
+
 #include "app.h"
 
 std::string rehaxUtils::App::getApplicationSupportDirectory() {
