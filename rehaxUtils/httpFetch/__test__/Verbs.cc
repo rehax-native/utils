@@ -3,6 +3,7 @@
 */
 
 #include "../HttpFetch.h"
+#include <cassert>
 
 using namespace rehaxUtils;
 
