@@ -81,7 +81,7 @@ if (${WIN})
     rehaxUtils/httpFetch/HttpFetch.cc
     rehaxUtils/httpFetch/HttpFetch.win.cc
     rehaxUtils/app/app.win.cc
-    rehaxUtils/paths/paths.win.mm
+    rehaxUtils/paths/paths.win.cc
   )
 
   add_library(
