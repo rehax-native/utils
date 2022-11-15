@@ -14,6 +14,7 @@ enum class OSName {
     Mac,
     Linux,
     Windows,
+    Unknown,
 };
 
 class OS {
@@ -45,6 +46,8 @@ constexpr rehaxUtils::OSName rehaxUtils::OS::name() {
   if (rehaxUtils::OS::isLinux()) {
     return OSName::Linux;
   }
+
+  return OSName::Unknown;
 }
 
 constexpr bool rehaxUtils::OS::isWindows() {
