@@ -74,3 +74,17 @@ std::string rehaxUtils::App::getApplicationGroupContainerDirectory(std::string a
   // Unsupported on win
   return "";
 }
+
+ApplicationTheme rehaxUtils::App::getApplicationTheme() {
+  return ApplicationTheme::Unsupported;
+}
+
+ApplicationThemeListenerId rehaxUtils::App::addApplicationThemeChangeListener(std::function<void(ApplicationTheme)> listener)
+{
+  return { 0 };
+}
+
+void rehaxUtils::App::removeApplicationThemeChangeListener(ApplicationThemeListenerId listenerId)
+{
+
+}
