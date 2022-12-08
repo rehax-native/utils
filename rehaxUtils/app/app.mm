@@ -80,7 +80,7 @@ rehaxUtils::App::ApplicationThemeListenerId rehaxUtils::App::addApplicationTheme
   // Before the app has finished launching, adding observer will have no effect
   // Therefore we add the observer only when we have an effectiveAppearance
   if (!AppThemeListener.sharedListener->didStartListening && NSApp.effectiveAppearance.name != nil) {
-    [NSApp addObserver:AppThemeListener.sharedListener forKeyPath:@"effectiveAppearance" options:NSKeyValueObservingOptionNew context:nil];
+    [NSApp addObserver:AppThemeListener.sharedListener forKeyPath:@"effectiveAppearance" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionInitial context:nil];
     AppThemeListener.sharedListener->didStartListening = true;
   }
   AppThemeListener.sharedListener->applicationThemeListeners[AppThemeListener.sharedListener->nextListenerId] = callback;
