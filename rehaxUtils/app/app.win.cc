@@ -3,6 +3,8 @@
 #define _WIN32_WINNT 0x601
 #endif
 #include <Shlobj.h>
+#include <winrt/Windows.UI.ViewManagement.h>
+#include <winrt/Windows.Foundation.h>
 
 #include "app.h"
 
@@ -71,20 +73,49 @@ std::string rehaxUtils::App::getApplicationSupportDirectoryForApp() {
 }
 
 std::string rehaxUtils::App::getApplicationGroupContainerDirectory(std::string appGroupID) {
+  auto moduleHandle = GetModuleHandleA("kick-synth-fluxe-win-standalone.exe");
+  const char filename[MAX_WIN32_PATH_LEN] = "";
+  GetModuleFileNameA(moduleHandle, (LPSTR) & filename[0], MAX_WIN32_PATH_LEN);
+  return 
   // Unsupported on win
   return "";
 }
 
-ApplicationTheme rehaxUtils::App::getApplicationTheme() {
-  return ApplicationTheme::Unsupported;
+using namespace winrt::Windows::UI::ViewManagement;
+
+rehaxUtils::App::ApplicationTheme rehaxUtils::App::getApplicationTheme() {
+    auto settings = UISettings();
+    auto foreground = settings.GetColorValue(UIColorType::Foreground);
+    auto clr = foreground;
+    bool isColorLight = (((5 * clr.G) + (2 * clr.R) + clr.B) > (8 * 128));
+    bool isDarkMode = isColorLight;
+    return isDarkMode ? ApplicationTheme::SystemDark : ApplicationTheme::SystemLight;
 }
 
-ApplicationThemeListenerId rehaxUtils::App::addApplicationThemeChangeListener(std::function<void(ApplicationTheme)> listener)
+static std::unordered_map<int, winrt::event_token> themeListeners;
+static int nextThemeListenerId = 0;
+
+rehaxUtils::App::ApplicationThemeListenerId rehaxUtils::App::addApplicationThemeChangeListener(std::function<void(ApplicationTheme)> listener)
 {
-  return { 0 };
+    // winrt::init_apartment();
+    auto settings = UISettings();
+    // std::cout << "Listening for theme " << std::endl;
+    // This doesn't work. The event handler is never called.
+    auto revoker = settings.ColorValuesChanged([listener] (auto&&...) {
+        // std::cout << "Theme changed " << std::endl;
+        listener(getApplicationTheme());
+    });
+    nextThemeListenerId++;
+    themeListeners[nextThemeListenerId] = revoker;
+    return { nextThemeListenerId };
 }
 
 void rehaxUtils::App::removeApplicationThemeChangeListener(ApplicationThemeListenerId listenerId)
 {
-
+    auto it = themeListeners.find(listenerId.id);
+    if (it != themeListeners.end()) {
+        auto settings = UISettings();
+        settings.ColorValuesChanged(it->second);
+        themeListeners.erase(listenerId.id);
+    }
 }
