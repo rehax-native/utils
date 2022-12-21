@@ -76,7 +76,7 @@ std::string rehaxUtils::App::getApplicationSupportDirectoryForApp() {
 }
 
 std::string rehaxUtils::App::getApplicationGroupContainerDirectory(std::string appGroupID) {
-  auto moduleHandle = GetModuleHandleA(appGroupID);
+  auto moduleHandle = GetModuleHandleA(appGroupID.c_str());
   const char filename[MAX_WIN32_PATH_LEN] = "";
   GetModuleFileNameA(moduleHandle, (LPSTR) & filename[0], MAX_WIN32_PATH_LEN);
 
