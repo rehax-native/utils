@@ -5,8 +5,11 @@
 #include <Shlobj.h>
 #include <winrt/Windows.UI.ViewManagement.h>
 #include <winrt/Windows.Foundation.h>
+#include <filesystem>
 
 #include "app.h"
+
+#define MAX_WIN32_PATH_LEN 256
 
 std::string rehaxUtils::App::getApplicationSupportDirectory() {
   WCHAR path[MAX_PATH+1];
@@ -73,12 +76,14 @@ std::string rehaxUtils::App::getApplicationSupportDirectoryForApp() {
 }
 
 std::string rehaxUtils::App::getApplicationGroupContainerDirectory(std::string appGroupID) {
-  auto moduleHandle = GetModuleHandleA("kick-synth-fluxe-win-standalone.exe");
+  auto moduleHandle = GetModuleHandleA(appGroupID);
   const char filename[MAX_WIN32_PATH_LEN] = "";
   GetModuleFileNameA(moduleHandle, (LPSTR) & filename[0], MAX_WIN32_PATH_LEN);
-  return 
-  // Unsupported on win
-  return "";
+
+  std::filesystem::path path(filename);
+  std::string containerPath = path.parent_path().parent_path().string();
+
+  return containerPath;
 }
 
 using namespace winrt::Windows::UI::ViewManagement;
